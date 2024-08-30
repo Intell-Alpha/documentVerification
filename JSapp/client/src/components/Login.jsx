@@ -1,12 +1,38 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import App from '../../../server/firebase/config';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 const Login = ({ type }) => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+// upon login
 
+  const handleSignup = () => {
+     const auth = getAuth()
+     try {
+      createUserWithEmailAndPassword(auth, id, password).then((response) => {
+        alert("created new user")
+        console.log(response.user.uid)
+      })
+      
+     } catch (error) {
+      alert('error in creating new user')
+     }
+  }
   const handleLogin = () => {
+
+      const auth = getAuth()
+      try {
+        signInWithEmailAndPassword(auth, id, password).then((response) => {
+          alert("loging success!")
+        })
+          console.log(response.user.uid)
+      } catch (error) {
+        console.log(error)
+        alert("login failed, try again")
+      }
+    return;
     if ((type === 'issuing' && id === 'issuingId' && password === 'issuingPass') ||
         (type === 'verifying' && id === 'verifyingId' && password === 'verifyingPass')) {
       navigate(`/${type}`);
@@ -32,7 +58,7 @@ const Login = ({ type }) => {
         onChange={(e) => setPassword(e.target.value)}
         style={styles.input}
       />
-      <button onClick={handleLogin} style={styles.button}>Login</button>
+      <button onClick={handleSignup} style={styles.button}>Login</button>
     </div>
   );
 };
