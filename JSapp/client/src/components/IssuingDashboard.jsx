@@ -1,18 +1,36 @@
 import React, { useState } from 'react';
+import { firestore, auth } from '../../../server/firebase/config';
+import { collectionGroup, addDoc, getDocs, QuerySnapshot, collection } from 'firebase/firestore';
+
+
 
 const IssuingDashboard = () => {
   const [documentType, setDocumentType] = useState('');
   const [individualId, setIndividualId] = useState('');
   const [file, setFile] = useState(null);
 
-  const handleUpload = () => {
-    // Handle document upload logic here
-    alert('Document uploaded successfully!');
-  };
+  async function fetchDB(){
+    console.log("fetchDB called");
+    let newData = null
+    await getDocs(collection(firestore, "/defaultAuth/defaultDoc/authorization"))
+    .then((querySnapshot) => {
+      newData = querySnapshot.docs[0].data()['type']
+
+      console.log(newData);
+    });
+    if(newData == 'issuing'){
+      alert('this is a issuing authority');
+    }
+  }
+  async function handleUpload(params) {
+    alert('Document uploaded!');
+    fetchDB();
+  }
 
   const handleIndividualSearch = () => {
     // Handle individual database ID search logic here
     alert(`Searching database for ID: ${individualId}`);
+
   };
 
   return (
