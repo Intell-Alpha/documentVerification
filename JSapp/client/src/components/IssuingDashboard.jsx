@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState,useEffect} from 'react';
 import app from '../../firebase/config';
 import { firestore, auth } from '../../firebase/config';
-import { collectionGroup, addDoc, getDocs, QuerySnapshot, collection, doc } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 
 const IssuingDashboard = () => {
   const [documentType, setDocumentType] = useState('');
   const [individualId, setIndividualId] = useState('');
   const [file, setFile] = useState(null);
 
-  // This function will run when the component mounts or reloads
+  // This is the empty function you asked me to create.
   useEffect(() => {
     console.log("Issuing Dashboard has been loaded or reloaded.");
-    // You can add any logic you want to execute here
+    // You can add any logic you want to execute here by replacing my
   }, []); // Empty dependency array means this runs only once on mount
+  
+
 
   async function fetchDB(){
     console.log("fetchDB called");
@@ -24,19 +26,23 @@ const IssuingDashboard = () => {
         console.log(newData);
       });
     if(newData === 'issuing'){
-      alert('This is an issuing authority');
+      alert('this is an issuing authority');
     }
   }
 
   async function handleUpload(params) {
-    alert('Document uploaded!');
-    fetchDB();
+    if (file && ['application/pdf', 'image/jpeg', 'image/png'].includes(file.type)) {
+      alert('Document uploaded!');
+      fetchDB();
+    } else {
+      alert('Please upload a file in PDF, JPG, or PNG format.');
+    }
   }
 
   return (
     <div style={styles.container}>
       <h2>Issuing Authority Dashboard</h2>
-      <label htmlFor="">Database ID</label>
+      <label htmlFor="individualId">Database ID</label>
       <input
         type="text"
         placeholder="Individual's Database ID"
@@ -44,16 +50,23 @@ const IssuingDashboard = () => {
         onChange={(e) => setIndividualId(e.target.value)}
         style={styles.input}
       />
-      <label htmlFor="">Type</label>
-      <input
-        type="text"
-        placeholder="Type of Document"
+      <label htmlFor="documentType">Type</label>
+      <select
+        id="documentType"
         value={documentType}
         onChange={(e) => setDocumentType(e.target.value)}
         style={styles.input}
-      />
+      >
+        <option value="" disabled>Select Document Type</option>
+        <option value="identity">Identity</option>
+        <option value="education">Education</option>
+        <option value="finance">Finance</option>
+        <option value="assets">Assets</option>
+        <option value="miscellaneous">Miscellaneous</option>
+      </select>
       <input
         type="file"
+        accept=".pdf, .jpg, .jpeg, .png"
         onChange={(e) => setFile(e.target.files[0])}
         style={styles.input}
       />
