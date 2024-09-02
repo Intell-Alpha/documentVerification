@@ -1,52 +1,42 @@
-import React, { useState } from 'react';
-// import { firestore, auth } from '../../';
+import React, { useState, useEffect } from 'react';
 import app from '../../firebase/config';
 import { firestore, auth } from '../../firebase/config';
 import { collectionGroup, addDoc, getDocs, QuerySnapshot, collection, doc } from 'firebase/firestore';
-
-
 
 const IssuingDashboard = () => {
   const [documentType, setDocumentType] = useState('');
   const [individualId, setIndividualId] = useState('');
   const [file, setFile] = useState(null);
 
-  async function fetchDB(){
-    
-    console.log("fetchDB called");
-    console.log(auth.currentUser['uid'])
-    let newData = null
-    await getDocs(collection(firestore, "/defaultAuth/defaultDoc/authorization"))
-    .then((querySnapshot) => {
-      newData = querySnapshot.docs[0].data()['type']
+  // This function will run when the component mounts or reloads
+  useEffect(() => {
+    console.log("Issuing Dashboard has been loaded or reloaded.");
+    // You can add any logic you want to execute here
+  }, []); // Empty dependency array means this runs only once on mount
 
-      console.log(newData);
-    });
-    if(newData == 'issuing'){
-      alert('this is a issuing authority');
+  async function fetchDB(){
+    console.log("fetchDB called");
+    console.log(auth.currentUser['uid']);
+    let newData = null;
+    await getDocs(collection(firestore, "/defaultAuth/defaultDoc/authorization"))
+      .then((querySnapshot) => {
+        newData = querySnapshot.docs[0].data()['type'];
+        console.log(newData);
+      });
+    if(newData === 'issuing'){
+      alert('This is an issuing authority');
     }
   }
+
   async function handleUpload(params) {
     alert('Document uploaded!');
     fetchDB();
   }
 
-  const handleIndividualSearch = () => {
-    // Handle individual database ID search logic here
-    alert(`Searching database for ID: ${individualId}`);
-
-  };
-
   return (
     <div style={styles.container}>
       <h2>Issuing Authority Dashboard</h2>
-      <input
-        type="text"
-        placeholder="Type of Document"
-        value={documentType}
-        onChange={(e) => setDocumentType(e.target.value)}
-        style={styles.input}
-      />
+      <label htmlFor="">Database ID</label>
       <input
         type="text"
         placeholder="Individual's Database ID"
@@ -54,9 +44,14 @@ const IssuingDashboard = () => {
         onChange={(e) => setIndividualId(e.target.value)}
         style={styles.input}
       />
-      <button onClick={handleIndividualSearch} style={styles.button}>
-        Find Individual
-      </button>
+      <label htmlFor="">Type</label>
+      <input
+        type="text"
+        placeholder="Type of Document"
+        value={documentType}
+        onChange={(e) => setDocumentType(e.target.value)}
+        style={styles.input}
+      />
       <input
         type="file"
         onChange={(e) => setFile(e.target.files[0])}
