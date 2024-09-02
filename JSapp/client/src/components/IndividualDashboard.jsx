@@ -1,11 +1,26 @@
 import React, { useState } from 'react';
+import { auth, firestore } from '../../firebase/config';
+import { collection, setDoc, doc, updateDoc, deleteField, getDocs} from 'firebase/firestore';
 
 const IndividualDashboard = () => {
   const [name, setName] = useState('');
-
-  const handleSearch = () => {
+  
+  const handleSearch = async () => {
     // Handle search logic here
     alert(`Searching documents for ${name}...`);
+    const path = 'users/'+auth.currentUser['uid']+'/documents'
+    await updateDoc(doc(firestore, path, 'identity'), {
+      doc5: deleteField()
+    })
+
+    await getDocs(collection(firestore, path))
+    .then((querySnapshot) => {
+      querySnapshot.docs.forEach((doc) => {
+        // const obj = doc.data()
+        console.log(JSON.stringify(doc.data(), null, 2));
+      })
+    })
+
   };
 
   return (

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import app from '../../../server/firebase/config';
-
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import app from '../../firebase/config'
+import { auth, firestore } from '../../firebase/config';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { setDoc, collection, doc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-
+import IssuingDashboard from './IssuingDashboard';
 const Login = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -14,12 +15,12 @@ const Login = () => {
   };
 
   const handleLogin = () => {
-    const auth = getAuth(app); 
+    // alert('logged in')
     signInWithEmailAndPassword(auth, login, password)
       .then((response) => {
         alert("Login success!");
         console.log("User ID:", response.user.uid);
-        navigate('/dashboard'); 
+        navigate('/IssuingDashboard'); 
       })
       .catch((error) => {
         console.error("Error Code:", error.code);
@@ -29,12 +30,26 @@ const Login = () => {
   };
   
 
-  const handleSignUp = () => {
-    const auth = getAuth(app); 
-    createUserWithEmailAndPassword(auth, login, password)
-      .then((response) => {
+  const handleSignUp = async () => {
+    // alert('signed up')
+    
+    await createUserWithEmailAndPassword(auth, login, password)
+      .then( async (response) => {
         alert("Created new user");
         console.log(response.user.uid);
+        await setDoc(doc(firestore, "users", response.user.uid), {
+          email: login,
+          uid: response.user.uid,
+          auth: "General"
+        })
+        const docPath = "users/"+response.user.uid+"/documents"
+        
+        await setDoc(doc(firestore, docPath, "identity"
+        ), {
+          doc1: 'link to doc1',
+          doc2: 'link to doc2'
+        })
+        navigate('/IndividualDashboard')
       })
       .catch((error) => {
         console.error(error);

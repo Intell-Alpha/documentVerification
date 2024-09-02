@@ -26,7 +26,7 @@ model = genai.GenerativeModel(
 )
 
 # Upload the file and print a confirmation.
-sample_file = genai.upload_file(path=r"C:\Users\kaush\Documents\intelAlpha\documentVerification\sampleImages\sampledocument.jpeg",
+sample_file = genai.upload_file(path=r"sampleImages\samplepassfront.jpg",
                             display_name="simple text")
 
 print(f"Uploaded file '{sample_file.display_name}' as: {sample_file.uri}")

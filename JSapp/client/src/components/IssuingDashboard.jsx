@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { firestore, auth } from '../../../server/firebase/config';
-import { collectionGroup, addDoc, getDocs, QuerySnapshot, collection } from 'firebase/firestore';
+// import { firestore, auth } from '../../';
+import app from '../../firebase/config';
+import { firestore, auth } from '../../firebase/config';
+import { collectionGroup, addDoc, getDocs, QuerySnapshot, collection, doc } from 'firebase/firestore';
 
 
 
@@ -10,7 +12,9 @@ const IssuingDashboard = () => {
   const [file, setFile] = useState(null);
 
   async function fetchDB(){
+    
     console.log("fetchDB called");
+    console.log(auth.currentUser['uid'])
     let newData = null
     await getDocs(collection(firestore, "/defaultAuth/defaultDoc/authorization"))
     .then((querySnapshot) => {
