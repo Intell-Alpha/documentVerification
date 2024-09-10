@@ -4,7 +4,8 @@ import requests
 from PIL import Image
 import io
 import re
-
+import sys
+import json
 class App:
     def __init__(self, categories: list, ApplicantDocuments: list, VerificationDocuments: list) -> None:
         self.Categories = categories
@@ -46,7 +47,7 @@ class App:
         return self.validation
 
     def runMain(category, application, verification):
-        app = App(cat, applicationDocuments, verificationDocuments)
+        app = App(category, application, verification)
         val = app.generateScore()
         scores = []
         finalTxt = ""
@@ -64,11 +65,19 @@ class App:
 
 
 
-cat = ['identity']
+# cat = ['identity']
 
-applicationDocuments = ['https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2Fedu2.png?alt=media&token=e4c632a5-3df3-408a-969c-bb272aa0428d', 'https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2FkaushalIdentity.png?alt=media&token=161c8e21-eaf5-4d8b-a321-01573f98762d']
-verificationDocuments = ['https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2Frandome1?alt=media&token=341a8ebd-037c-48d3-8ccf-67839fe883ea', 'https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2FWhatsApp%20Image%202024-09-05%20at%2011.31.59%20AM.jpeg?alt=media&token=377fd08e-f96e-4997-b83c-3254bef8da08']
+# applicationDocuments = ['https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2Fedu2.png?alt=media&token=e4c632a5-3df3-408a-969c-bb272aa0428d', 'https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2FkaushalIdentity.png?alt=media&token=161c8e21-eaf5-4d8b-a321-01573f98762d']
+# verificationDocuments = ['https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2Frandome1?alt=media&token=341a8ebd-037c-48d3-8ccf-67839fe883ea', 'https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2FWhatsApp%20Image%202024-09-05%20at%2011.31.59%20AM.jpeg?alt=media&token=377fd08e-f96e-4997-b83c-3254bef8da08']
 
-params = App.runMain(category=cat, application=applicationDocuments, verification=verificationDocuments)
-print(params[0])
-print(params[1])
+# params = App.runMain(category=cat, application=applicationDocuments, verification=verificationDocuments)
+# print(params[0])
+# print(params[1])
+
+if __name__ == "__main__":
+    input_data = json.loads(sys.argv[1])
+    category = input_data['list1']
+    applicationDocuments = input_data['list2']
+    verificationDocuments = input_data['list3']
+    params = App.runMain(category=category, application=applicationDocuments, verification=verificationDocuments)
+    print(json.dumps(params))
