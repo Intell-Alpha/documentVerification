@@ -13,7 +13,6 @@ const IssuingDashboard = () => {
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
 
-  // This is the empty function you asked me to create.
   useEffect(() => {
     console.log("Issuing Dashboard has been loaded or reloaded.");
     getCategoryAccess();
@@ -121,6 +120,7 @@ const IssuingDashboard = () => {
         onChange={(e) => setFile(e.target.files[0])}
         style={styles.input}
       />
+
       <button onClick={handleUpload} style={styles.button}>
         Upload Document
       </button>
@@ -151,3 +151,5 @@ const styles = {
 };
 
 export default IssuingDashboard;
+
+
