@@ -1,9 +1,9 @@
-import React, { useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import app from '../../firebase/config';
 import { firestore, auth, storage } from '../../firebase/config';
 import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
 import { updateMetadata, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const IssuingDashboard = () => {
   const [documentType, setDocumentType] = useState('');
@@ -11,65 +11,60 @@ const IssuingDashboard = () => {
   const [documentId, setDocumentId] = useState('');
   const [catAcces, setCatAccess] = useState(['identity', 'work']);
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false); // New loading state
   const navigate = useNavigate();
 
   useEffect(() => {
     console.log("Issuing Dashboard has been loaded or reloaded.");
     getCategoryAccess();
-    // You can add any logic you want to execute here by replacing my
-  }, []); // Empty dependency array means this runs only once on mount
-  
+  }, []);
 
-  async function getCategoryAccess(){
-    // console.log("fetchDB called");
+  async function getCategoryAccess() {
     try {
-
       console.log(auth.currentUser['uid']);
-      const path = 'users/'+auth.currentUser['uid']+'/authorization'
-      const snapshot = await getDoc(doc(firestore, path, 'credentials'))
-      const catAcc = snapshot.data()['categoryAccess']
-      const isValid = snapshot.data()['dashboardAccess']==='Issuing'
-      setCatAccess(catAcc)
-      if(!isValid){
+      const path = 'users/' + auth.currentUser['uid'] + '/authorization';
+      const snapshot = await getDoc(doc(firestore, path, 'credentials'));
+      const catAcc = snapshot.data()['categoryAccess'];
+      const isValid = snapshot.data()['dashboardAccess'] === 'Issuing';
+      setCatAccess(catAcc);
+      if (!isValid) {
         alert('You do not have access to this dashboard');
-        navigate('/')
+        navigate('/');
       }
     } catch (error) {
       alert("please login again");
-      navigate('/')
+      navigate('/');
     }
   }
 
-  async function handleUpload(params) {
-
+  async function handleUpload() {
     if (file && ['application/pdf', 'image/jpeg', 'image/png'].includes(file.type)) {
-      // alert('Document uploaded!');
-      const StoragePath = individualId+'/'+documentId
-      const fireStorePath = 'users/'+individualId+'/documents'
-      const docRef = doc(firestore, fireStorePath, documentType)
-      const storageRef = ref(storage, StoragePath)
-      let url = null
+      const StoragePath = individualId + '/' + documentId;
+      const fireStorePath = 'users/' + individualId + '/documents';
+      const docRef = doc(firestore, fireStorePath, documentType);
+      const storageRef = ref(storage, StoragePath);
+      let url = null;
+
+      setLoading(true); // Start loading
+
       try {
         await uploadBytesResumable(storageRef, file).then(async (snapshot) => {
           console.log('Upload is ' + snapshot.state);
           await getDownloadURL(storageRef).then((uri) => {
             console.log(uri);
-            url = uri
-          })
+            url = uri;
+          });
 
-          await setDoc(docRef, {[documentId]: url}, {merge:true})
+          await setDoc(docRef, { [documentId]: url }, { merge: true });
           console.log('File uploaded successfully');
-          open(url)
-        })
-        
+          open(url);
+        });
       } catch (error) {
-        console.log(error)
-        alert('upload failed! please try again')
-        
+        console.log(error);
+        alert('Upload failed! Please try again');
+      } finally {
+        setLoading(false); // End loading
       }
-
-
-      
     } else {
       alert('Please upload a file in PDF, JPG, or PNG format.');
     }
@@ -78,8 +73,6 @@ const IssuingDashboard = () => {
   return (
     <div style={styles.container}>
       <h2>Issuing Authority Dashboard</h2>
-
-      {/* <label htmlFor="individualId">Database ID</label> */}
 
       <label htmlFor="">Database ID of user</label>
       <input
@@ -90,7 +83,6 @@ const IssuingDashboard = () => {
         style={styles.input}
       />
       <label htmlFor="">Document Title</label>
-
       <input
         type="text"
         placeholder="name of Document"
@@ -107,11 +99,9 @@ const IssuingDashboard = () => {
         style={styles.input}
       >
         <option value="" disabled>Select Document Type</option>
-        {
-          catAcces.map(cat => {
-            return <option value={cat}>{cat}</option>
-          })
-        }
+        {catAcces.map((cat) => (
+          <option value={cat} key={cat}>{cat}</option>
+        ))}
       </select>
 
       <input
@@ -121,9 +111,14 @@ const IssuingDashboard = () => {
         style={styles.input}
       />
 
-      <button onClick={handleUpload} style={styles.button}>
-        Upload Document
-      </button>
+      {/* Show loading spinner or message */}
+      {loading ? (
+        <p>Uploading... Please wait</p>
+      ) : (
+        <button onClick={handleUpload} style={styles.button}>
+          Upload Document
+        </button>
+      )}
     </div>
   );
 };
@@ -151,5 +146,3 @@ const styles = {
 };
 
 export default IssuingDashboard;
-
-
