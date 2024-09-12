@@ -1,22 +1,25 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './components/Login';
+import Home from './components/Home';
+import Login from './components/Login'; // Your existing Login component
 import IssuingDashboard from './components/IssuingDashboard';
-import IndividualDashboard from './components/IndividualDashboard';
 import VerifyingDashboard from './components/VerifyingDashboard';
-// import other components
-
+import IndividualDashboard from './components/IndividualDashboard';
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
+        {/* Set Home as the initial route */}
+        <Route path="/" element={<Home />} />
+
+        {/* Route for Login page */}
+        <Route path="/login" element={<Login />} />
+
+        {/* Existing dashboard routes */}
         <Route path="/IssuingDashboard" element={<IssuingDashboard />} />
         <Route path="/VerifyingDashboard" element={<VerifyingDashboard />} />
         <Route path="/IndividualDashboard" element={<IndividualDashboard />} />
-
-        {/* Define other routes here */}
       </Routes>
     </Router>
   );
