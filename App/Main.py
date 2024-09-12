@@ -67,9 +67,8 @@ class App:
 
 # cat = ['identity']
 
-# applicationDocuments = ['https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2Fedu2.png?alt=media&token=e4c632a5-3df3-408a-969c-bb272aa0428d', 'https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2FkaushalIdentity.png?alt=media&token=161c8e21-eaf5-4d8b-a321-01573f98762d']
-# verificationDocuments = ['https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2Frandome1?alt=media&token=341a8ebd-037c-48d3-8ccf-67839fe883ea', 'https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2FWhatsApp%20Image%202024-09-05%20at%2011.31.59%20AM.jpeg?alt=media&token=377fd08e-f96e-4997-b83c-3254bef8da08']
-
+# applicationDocuments = ['https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/A58z2z9qSETixNDNzmC5LRzvrg42application-documents%2FeducationApplication.png?alt=media&token=9f383bac-c24c-45d2-b201-5bb55e1080b8']
+# verificationDocuments = ['https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2FCBIT%20ID%20card?alt=media&token=ace4435e-f8a8-4390-a27a-866714f05c58', 'https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2FMarks%20memo%20sem%203?alt=media&token=17ff67e9-7f06-4af2-a01d-c87ae9a77380']
 # params = App.runMain(category=cat, application=applicationDocuments, verification=verificationDocuments)
 # print(params[0])
 # print(params[1])
