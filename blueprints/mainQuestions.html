@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Details Application</title>
+</head>
+<body>
+    <h1>Educational Details</h1>
+    <form id="education-form">
+        <!-- Name -->
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <!-- College Name -->
+        <label for="courses">college name:</label><br>
+        <textarea id="college name" name="college name" rows="2" cols="25" placeholder="college name" required></textarea><br><br>
+
+        <!-- Courses Studied -->
+        <label for="courses">Courses Studied:</label><br>
+        <textarea id="courses" name="courses" rows="4" cols="50" placeholder="List all courses" required></textarea><br><br>
+
+        <!-- Cumulative CGPA -->
+        <label for="cgpa">Cumulative CGPA:</label><br>
+        <input type="number" id="cgpa" name="cgpa" step="0.01" min="0" max="10" required><br><br>
+
+        <!-- Submit Button -->
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

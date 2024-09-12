@@ -38,8 +38,6 @@ const IssuingDashboard = () => {
       alert("please login again");
       navigate('/')
     }
-
-
   }
 
   async function handleUpload(params) {
