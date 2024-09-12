@@ -7,16 +7,17 @@ import { redirect, useNavigate } from 'react-router-dom';
 import './verifying.css';
 
 const VerifyingDashboard = () => {
+  // const {spawn} = require('child_process');
   const [userID, setUserID] = useState('');
   const [userVerified, setUserVerified] = useState(false);
 
-  const [catAccess, setCatAccess] = useState(['education', 'work', 'identity']);
+  const [catAccess, setCatAccess] = useState([]);
 
   const navigate = useNavigate();
     // This is the empty function you asked me to create.
     useEffect(() => {
       console.log("Verifying Dashboard has been loaded or reloaded.");
-      // getCategoryAccess();
+      getCategoryAccess();
 
       // You can add any logic you want to execute here by replacing my
     }, []); // Empty dependency array means this runs only once on mount
@@ -42,6 +43,26 @@ const VerifyingDashboard = () => {
       }
     }
   
+    const getCategoryDocuments = async (category) => {
+      let verificationList = [];
+      const path = 'users/' + userID + '/documents';
+      
+      console.log(path);
+      console.log(category);
+    
+      try {
+        const snapshot = await getDoc(doc(firestore, path, category));
+        if (snapshot.exists()) {
+          verificationList = Object.values(snapshot.data());
+        } else {
+          console.log("No document found!");
+        }
+      } catch (error) {
+        console.log("Error fetching documents: ", error);
+      }
+    
+      return verificationList;
+    };
 
   const handleVerify = () => {
     // Handle verification logic here
@@ -52,8 +73,54 @@ const VerifyingDashboard = () => {
 
   }
 
+  const uploadCurrentFiles = async (files) => {
+    // Upload current files to Firebase Storage
+    let urlList = []
+    const path = auth.currentUser['uid'] + 'application-documents'
+    const storageRef = ref(storage, path);
+      try {
+        // Use Promise.all to handle multiple asynchronous uploads
+        await Promise.all(files.map(async (element) => {
+          const fileRef = ref(storage, `${path}/${element.name}`); // Add file name for uniqueness
+          const snapshot = await uploadBytesResumable(fileRef, element);
+          console.log('Upload is ' + snapshot.state);
+          const uri = await getDownloadURL(fileRef);
+          // console.log(uri);
+          urlList.push(uri);
+        }));
+      } catch (error) {
+        console.log(error);
+        alert('Upload failed! Please try again.');
+      }
+    
+    console.log(urlList)
+    return urlList;
+  }
+  
+  const validateDocuments = async (list1, list2, list3) => {
+    try {
+        const response = await fetch('http://localhost:5000/validate-documents', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ list1, list2, list3 }),
+        });
+
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log('Validation Result:', result);
+        return result;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
   const verifyDocuments = (category, files) => {
     // Mock verification process (replace with actual function)
+
     return {
       summary: `Verified ${files.length} files in ${category}`,
       score: Math.floor(Math.random() * 100) // Random score (replace with real logic)
@@ -67,18 +134,31 @@ const VerifyingDashboard = () => {
     const handleFileUpload = (event) => {
       const uploadedFiles = Array.from(event.target.files);
       setFiles((prevFiles) => [...prevFiles, ...uploadedFiles]);
+      
+
     };
     const handleDeleteFile = (fileName) => {
       setFiles((prevFiles) => prevFiles.filter(file => file.name !== fileName));
     };
   
   
-    const handleVerify = () => {
+    const handleVerify = async (category) => {
       if (files.length === 0) {
         alert("Please upload files before verifying.");
         return;
       }
-      const result = verifyDocuments(category, files);
+
+      const applicationList = await uploadCurrentFiles(files);
+      const cateogryList = [category]
+      const verificationList = await getCategoryDocuments(category)
+
+      console.log("application list: "+applicationList.length)
+      console.log("categoryList : "+cateogryList)
+      console.log("verification List: "+verificationList.length )
+
+      // const result = verifyDocuments(category, files);
+      // setVerificationResult(result);
+      const result = await validateDocuments(cateogryList, applicationList, verificationList);
       setVerificationResult(result);
     };
   
@@ -108,13 +188,13 @@ const VerifyingDashboard = () => {
         )}
   
         {/* Verify Button */}
-        <button className="verify-btn" onClick={handleVerify}>Verify</button>
+        <button className="verify-btn" onClick={() => handleVerify(category)}>Verify</button>
   
         {/* Summary and Score */}
         {verificationResult && (
           <div className="verification-result">
-            <p><strong>Summary:</strong> {verificationResult.summary}</p>
-            <p><strong>Score:</strong> {verificationResult.score}</p>
+            <p><strong>Summary:</strong> {verificationResult[1]}</p>
+            <p><strong>Score:</strong> {verificationResult[0]}</p>
           </div>
         )}
       </div>

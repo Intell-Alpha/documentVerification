@@ -58,7 +58,7 @@ def printBoard(solution):
 globalSolution = []
 
 
-n = 8
+n = 10
 if(n < 4):
     print("No solution exists")
     exit()
