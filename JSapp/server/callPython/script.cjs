@@ -11,7 +11,7 @@ const getValidationResponse = (list1, list2, list3) => {
         let result = null;
         const inputData = JSON.stringify({ list1, list2, list3 });
 
-        const getMain = spawn('py', ['C:\\Users\\kaush\\Documents\\intelAlpha\\documentVerification\\App\\Main.py', inputData]);
+        const getMain = spawn('py', ['Main.py', inputData]);
 
         getMain.stdout.on('data', (data) => {
             try {
