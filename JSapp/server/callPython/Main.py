@@ -65,6 +65,15 @@ class App:
 
 
 
+
+# cat = ['identity']
+
+# applicationDocuments = ['https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/A58z2z9qSETixNDNzmC5LRzvrg42application-documents%2FeducationApplication.png?alt=media&token=9f383bac-c24c-45d2-b201-5bb55e1080b8']
+# verificationDocuments = ['https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2FCBIT%20ID%20card?alt=media&token=ace4435e-f8a8-4390-a27a-866714f05c58', 'https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2FMarks%20memo%20sem%203?alt=media&token=17ff67e9-7f06-4af2-a01d-c87ae9a77380']
+# params = App.runMain(category=cat, application=applicationDocuments, verification=verificationDocuments)
+# print(params[0])
+# print(params[1])
+
 # cat = ['identity']
 
 # applicationDocuments = ['https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/A58z2z9qSETixNDNzmC5LRzvrg42application-documents%2FeducationApplication.png?alt=media&token=9f383bac-c24c-45d2-b201-5bb55e1080b8']
@@ -80,3 +89,4 @@ if __name__ == "__main__":
     verificationDocuments = input_data['list3']
     params = App.runMain(category=category, application=applicationDocuments, verification=verificationDocuments)
     print(json.dumps(params))
+
