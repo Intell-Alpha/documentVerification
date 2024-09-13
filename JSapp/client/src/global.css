@@ -1,0 +1,10 @@
+/* global.css */
+body {
+    background-image: url('https://uploads-ssl.webflow.com/62a9e41d28a7ab25849bce9c/630cd71c95667ea231239313_types-of-document-verification-A-detailed-list.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    margin: 0;
+    font-family: Arial, sans-serif; /* Use a clean, professional font */
+  }
+  
