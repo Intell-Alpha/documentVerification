@@ -1,0 +1,15 @@
+/* src/components/Footer.css */
+.footer {
+    padding: 1rem;
+    background-color: #f8f9fa; /* Adjust as needed */
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .footer p {
+    margin: 0;
+    color: #333; /* Adjust as needed */
+  }
+  

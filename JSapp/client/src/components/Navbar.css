@@ -1,0 +1,30 @@
+/* src/components/Navbar.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #ffffff; /* Adjust as needed */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-logo {
+    height: 40px; /* Adjust the size of the logo */
+  }
+  
+  .navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .navbar-links a {
+    text-decoration: none;
+    color: #333; /* Adjust as needed */
+    font-weight: bold;
+  }
+  
+  .navbar-links a:hover {
+    color: #007bff; /* Adjust the hover color */
+  }
+  
