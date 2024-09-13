@@ -1,14 +1,32 @@
-import React, { useState } from 'react';
-import { firestore } from '../../firebase/config';
+import React, { useState, useEffect } from 'react';
+import { firestore, auth } from '../../firebase/config';
 import { collection, getDocs } from 'firebase/firestore';
 import bgImage from '../assets/bg4.jpg'; // Ensure this path is correct
+
 
 const IndividualDashboard = () => {
   const [userID, setUserID] = useState(''); // Input for User ID
   const [documents, setDocuments] = useState([]); // Store fetched documents
   const [loading, setLoading] = useState(false); // Track loading state
   const [error, setError] = useState(''); // Track errors
+  const [documentList, setDocumentList] = useState([]);
 
+  useEffect(() => {
+    console.log("Individual Dashboard has been loaded or reloaded.");
+    // getCategoryAccess();
+  }, []);
+
+  
+  const getUserId = async() => {
+    try {
+      const id = auth.currentUser()['uid'];
+      setUserID(id);
+      
+
+    } catch (error) {
+      
+    }
+  }
   const handleSearch = async () => {
     if (!userID) {
       alert('Please enter a valid User ID');
