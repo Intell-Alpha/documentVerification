@@ -14,6 +14,7 @@ const Login = () => {
   const [showAadharInput, setShowAadharInput] = useState(false); // State to show Aadhar input
   const navigate = useNavigate();
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     handleLogin();
@@ -51,6 +52,7 @@ const Login = () => {
   };
 
   const handleSignUp = async () => {
+
     if (showAadharInput) {
       // Handle sign-up with Aadhar number
       setIsSigningUp(true); // Start loading for sign up
@@ -80,6 +82,30 @@ const Login = () => {
       // Show Aadhar number input
       setShowAadharInput(true);
     }
+
+    setIsSigningUp(true); // Start loading for sign up
+    await createUserWithEmailAndPassword(auth, login, password)
+      .then(async (response) => {
+        alert("Created new user");
+        const path = "users/"+response.user.uid+"/authorization";
+        await setDoc(doc(firestore, path, 'credentials'), {
+          email: login,
+          uid: response.user.uid,
+          dashboardAccess: "General"
+        });
+
+        const docPath = "users/"+response.user.uid+"/documents";
+        const categories = ['Identity', 'Education', 'Work', 'Finance', 'Miscellaneous'];
+        for (let index = 0; index < categories.length; index++) {
+          await setDoc(doc(firestore, docPath, categories[index]), {});
+        }
+
+        navigate('/IndividualDashboard');
+      })
+      .catch((error) => {
+        alert("Error in creating new user");
+      })
+      .finally(() => setIsSigningUp(false)); // Stop loading after sign up completes
   };
 
   const handleAuthorization = () => {
@@ -89,6 +115,7 @@ const Login = () => {
   return (
     <div style={styles.fullPage}>
       <div style={styles.container}>
+
         <img src="/logo_pravah.png" alt="Pravah Logo" style={styles.logo} />
         <h2 style={styles.header}>Login</h2>
         <form onSubmit={handleSubmit} style={styles.form}>
@@ -101,6 +128,7 @@ const Login = () => {
               style={styles.input}
             />
           )}
+
           <input
             type="text"
             placeholder="Login"
@@ -129,7 +157,9 @@ const Login = () => {
             style={styles.sideButton}
             disabled={isSigningUp}
           >
+
             {isSigningUp ? 'Loading...' : (showAadharInput ? 'Confirm Sign Up' : 'Sign Up')}
+
           </button>
           <button onClick={handleAuthorization} style={styles.sideButton}>
             Authorization
@@ -142,6 +172,7 @@ const Login = () => {
 
 const styles = {
   fullPage: {
+
     height: '100vh',
     width: '100vw',
     backgroundImage: `url(${bgImage})`,
@@ -154,6 +185,7 @@ const styles = {
   },
   container: {
     textAlign: 'center',
+
     padding: '80px 100px', // Increased padding for larger container
     maxWidth: '500px', // Increased maxWidth for container
     backgroundColor: 'rgba(255, 255, 255, 0.9)', // Slightly more opaque for readability
@@ -167,14 +199,18 @@ const styles = {
     margin: '0',
     fontSize: '2.5rem', // Increased header font size
     marginBottom: '20px',
+
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
+
   },
   input: {
+
     margin: '15px 0',
     padding: '12px',
+
     width: '100%',
     boxSizing: 'border-box',
     borderRadius: '15px',
@@ -199,11 +235,14 @@ const styles = {
   },
   sideButton: {
     padding: '12px 24px',
+
     backgroundColor: '#6c757d',
     color: '#fff',
     border: 'none',
     cursor: 'pointer',
     width: '48%',
+
+    
     borderRadius: '12px',
     transition: 'background-color 0.3s ease',
     display: 'flex',

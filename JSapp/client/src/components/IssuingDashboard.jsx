@@ -3,7 +3,9 @@ import { firestore, auth, storage } from '../../firebase/config';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
-import bgImage from '../assets/bg4.jpg'; // Ensure this path is correct
+
+import bgImage from '../assets/bg4.jpg'; // Make sure this path is correct
+
 
 const IssuingDashboard = () => {
   const [documentType, setDocumentType] = useState('');
@@ -33,6 +35,7 @@ const IssuingDashboard = () => {
       }
     } catch (error) {
       alert("Please login again");
+
       navigate('/');
     }
   }
@@ -73,9 +76,11 @@ const IssuingDashboard = () => {
   return (
     <div style={styles.fullPage}>
       <div style={styles.container}>
+
         <img src="/logo_pravah.png" alt="Pravah Logo" style={styles.logo} /> {/* Update Logo Image Path */}
         <h2 style={styles.heading}>Issuing Authority Dashboard</h2>
         
+
         <label style={styles.label} htmlFor="individualId">Database ID of user</label>
         <input
           id="individualId"
@@ -143,6 +148,7 @@ const styles = {
   container: {
     textAlign: 'center',
     gap: '10px',
+
     padding: '50px',
     backgroundColor: 'rgba(255, 255, 255, 0.8)', // Optional: Add a background color to make the content more readable
     borderRadius: '20px', // Optional: Add rounded corners to the container
@@ -151,6 +157,7 @@ const styles = {
   logo: {
     width: '150px', // Adjust width as needed
     marginBottom: '20px', // Space between logo and heading
+
   },
   input: {
     display: 'block',
@@ -158,11 +165,13 @@ const styles = {
     padding: '15px',
     width: '80%',
     borderRadius: '20px',
+
     maxWidth: '400px', // Increased max-width for better appearance
     fontFamily: 'Arial, sans-serif', // Use a professional font
   },
   heading: {
     fontSize: '30px',
+
     padding: '30px', // Space around the heading
     color: '#373232', // Primary color for headings
   },
@@ -170,6 +179,7 @@ const styles = {
     fontSize: '20px',
     margin: '10px 0', // Space around the label
     color: '#333', // Adjust color if needed
+
   },
   button: {
     padding: '10px 20px',
@@ -178,6 +188,7 @@ const styles = {
     border: 'none',
     cursor: 'pointer',
     borderRadius: '20px',
+
     marginTop: '20px', // Increased margin for better spacing
     fontFamily: 'Arial, sans-serif', // Use a professional font
   },
@@ -189,4 +200,3 @@ const styles = {
 };
 
 export default IssuingDashboard;
-

@@ -194,5 +194,27 @@ const VerifyingDashboard = () => {
   );
 };
 
+
+const styles = {
+  container: {
+    textAlign: 'center',
+    padding: '20px',
+  },
+  input: {
+    display: 'block',
+    margin: '10px auto',
+    padding: '10px',
+    width: '80%',
+    maxWidth: '300px',
+  },
+  button: {
+    padding: '10px 20px',
+    backgroundColor: '#007bff',
+    color: '#fff',
+    border: 'none',
+    cursor: 'pointer',
+  },
+};
+
 export default VerifyingDashboard;
 

@@ -42,7 +42,9 @@ const IndividualDashboard = () => {
 
   return (
     <div style={styles.fullPage}>
+
       <img src="/logo_pravah.png" alt="Pravah Logo" style={styles.logo} /> {/* Use relative path for public folder */}
+
       <div style={styles.container}>
         <h2 style={styles.header}>Individual Dashboard</h2>
 
@@ -99,6 +101,7 @@ const styles = {
     backgroundSize: 'cover', // Ensures the image covers the entire page
     backgroundPosition: 'center', // Centers the image
     backgroundRepeat: 'no-repeat', // Prevents image repetition
+
     position: 'relative', // Ensure the logo is positioned relative to this container
   },
   logo: {
@@ -107,17 +110,29 @@ const styles = {
     left: '20px',
     width: '180px', // Adjust size as needed
     height: 'auto', // Maintain aspect ratio
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '20px', // Add padding to avoid content being clipped
+    boxSizing: 'border-box', // Includes padding and border in element's total width and height
+
   },
   container: {
     textAlign: 'center',
     padding: '20px',
     backgroundColor: 'rgba(255, 255, 255, 0.9)', // Slightly transparent background for readability
+
     borderRadius: '20px', // Rounded corners
     maxWidth: '800px', // Adjust as needed
     width: '100%', // Responsive width
     boxSizing: 'border-box', // Includes padding and border in element's total width and height
     margin: '0 auto', // Center horizontally
     marginTop: '10px', // Move container down from the top
+    borderRadius: '8px', // Rounded corners
+    maxWidth: '800px', // Adjust as needed
+    width: '100%', // Responsive width
+    boxSizing: 'border-box', // Includes padding and border in element's total width and height
+
   },
   header: {
     margin: '0 0 20px 0', // Add margin to separate header from content
@@ -132,7 +147,9 @@ const styles = {
     maxWidth: '400px',
     fontFamily: 'Arial, sans-serif',
     fontSize: '16px',
+
     borderRadius: '20px',
+
   },
   button: {
     padding: '10px 20px',
@@ -144,6 +161,7 @@ const styles = {
     fontFamily: 'Arial, sans-serif',
     fontSize: '16px',
     borderRadius: '20px',
+
   },
   error: {
     color: 'red',
@@ -191,6 +209,3 @@ const styles = {
 };
 
 export default IndividualDashboard;
-
-
-
