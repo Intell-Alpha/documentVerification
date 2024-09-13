@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import app from '../../firebase/config';
 import { firestore, auth, storage } from '../../firebase/config';
-import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
-import { updateMetadata, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
+import bgImage from '../assets/bg4.jpg'; // Make sure this path is correct
 
 const IssuingDashboard = () => {
   const [documentType, setDocumentType] = useState('');
@@ -71,69 +71,97 @@ const IssuingDashboard = () => {
   }
 
   return (
-    <div style={styles.container}>
-      <h2>Issuing Authority Dashboard</h2>
+    <div style={styles.fullPage}>
+      <div style={styles.container}>
+        <h2 style={styles.heading} >Issuing Authority Dashboard</h2>
 
-      <label htmlFor="">Database ID of user</label>
-      <input
-        type="text"
-        placeholder="user id"
-        value={individualId}
-        onChange={(e) => setIndividualId(e.target.value)}
-        style={styles.input}
-      />
-      <label htmlFor="">Document Title</label>
-      <input
-        type="text"
-        placeholder="name of Document"
-        value={documentId}
-        onChange={(e) => setDocumentId(e.target.value)}
-        style={styles.input}
-      />
+        <label style={styles.label} htmlFor="individualId">Database ID of user</label>
+        <input
+          id="individualId"
+          type="text"
+          placeholder="User ID"
+          value={individualId}
+          onChange={(e) => setIndividualId(e.target.value)}
+          style={styles.input}
+        />
+        <label style={styles.label} htmlFor="documentId">Document Title</label>
+        <input 
+          id="documentId"
+          type="text"
+          placeholder="Name of Document"
+          value={documentId}
+          onChange={(e) => setDocumentId(e.target.value)}
+          style={styles.input}
+        />
 
-      <label htmlFor="documentType">Category</label>
-      <select
-        id="documentType"
-        value={documentType}
-        onChange={(e) => setDocumentType(e.target.value)}
-        style={styles.input}
-      >
-        <option value="" disabled>Select Document Type</option>
-        {catAcces.map((cat) => (
-          <option value={cat} key={cat}>{cat}</option>
-        ))}
-      </select>
+        <label style={styles.label} htmlFor="documentType">Category</label>
+        <select
+          id="documentType"
+          value={documentType}
+          onChange={(e) => setDocumentType(e.target.value)}
+          style={styles.input}
+        >
+          <option value="" disabled>Select Document Type</option>
+          {catAcces.map((cat) => (
+            <option value={cat} key={cat}>{cat}</option>
+          ))}
+        </select>
 
-      <input
-        type="file"
-        accept=".pdf, .jpg, .jpeg, .png"
-        onChange={(e) => setFile(e.target.files[0])}
-        style={styles.input}
-      />
+        <input 
+          type="file"
+          accept=".pdf, .jpg, .jpeg, .png"
+          onChange={(e) => setFile(e.target.files[0])}
+          style={styles.input}
+        />
 
-      {/* Show loading spinner or message */}
-      {loading ? (
-        <p>Uploading... Please wait</p>
-      ) : (
-        <button onClick={handleUpload} style={styles.button}>
-          Upload Document
-        </button>
-      )}
+        {/* Show loading spinner or message */}
+        {loading ? (
+          <p style={styles.loadingText}>Uploading... Please wait</p>
+        ) : (
+          <button onClick={handleUpload} style={styles.button}>
+            Upload Document
+          </button>
+        )}
+      </div>
     </div>
   );
 };
 
 const styles = {
+  fullPage: {
+    height: '100vh', /* Ensures the div takes up the full viewport height */
+    width: '100vw', /* Ensures the div takes up the full viewport width */
+    backgroundImage: `url(${bgImage})`,
+    backgroundSize: 'cover', // Ensures the image covers the entire page
+    backgroundPosition: 'center', // Centers the image
+    backgroundRepeat: 'no-repeat', // Prevents image repetition
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     textAlign: 'center',
-    padding: '20px',
+    gap: '10px',
+    padding: '50px ',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Optional: Add a background color to make the content more readable
+    borderRadius: '20px', // Optional: Add rounded corners to the container
+    maxWidth: '600px', // Adjust as needed
   },
   input: {
     display: 'block',
-    margin: '10px auto',
-    padding: '10px',
+    margin: '15px auto', // Increased margin for better spacing
+    padding: '15px',
     width: '80%',
-    maxWidth: '300px',
+    maxWidth: '400px', // Increased max-width for better appearance
+    fontFamily: 'Arial, sans-serif', // Use a professional font
+  },
+  heading: {
+    fontSize: '30px',
+    padding: '30px' // Font size for the heading
+  },
+  label: {
+    fontSize: '20px',
+     // Font size for the heading
   },
   button: {
     padding: '10px 20px',
@@ -141,7 +169,13 @@ const styles = {
     color: '#fff',
     border: 'none',
     cursor: 'pointer',
-    marginTop: '10px',
+    marginTop: '20px', // Increased margin for better spacing
+    fontFamily: 'Arial, sans-serif', // Use a professional font
+  },
+  loadingText: {
+    fontFamily: 'Arial, sans-serif', // Use a professional font
+    fontSize: '16px', // Adjust font size as needed
+    color: '#333', // Adjust color if needed
   },
 };
 

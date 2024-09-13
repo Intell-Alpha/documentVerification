@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { firestore } from '../../firebase/config';
 import { collection, getDocs } from 'firebase/firestore';
+import bgImage from '../assets/bg4.jpg'; // Ensure this path is correct
 
 const IndividualDashboard = () => {
   const [userID, setUserID] = useState(''); // Input for User ID
@@ -40,64 +41,91 @@ const IndividualDashboard = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <h2>Individual Dashboard</h2>
+    <div style={styles.fullPage}>
+      <div style={styles.container}>
+        <h2 style={styles.header}>Individual Dashboard</h2>
 
-      {/* Input for User ID */}
-      <input
-        type="text"
-        placeholder="Enter User ID"
-        value={userID}
-        onChange={(e) => setUserID(e.target.value)}
-        style={styles.input}
-      />
+        {/* Input for User ID */}
+        <input
+          type="text"
+          placeholder="Enter User ID"
+          value={userID}
+          onChange={(e) => setUserID(e.target.value)}
+          style={styles.input}
+        />
 
-      {/* Find Documents Button */}
-      <button onClick={handleSearch} style={styles.button} disabled={loading}>
-        {loading ? 'Searching...' : 'Find Documents'}
-      </button>
+        {/* Find Documents Button */}
+        <button onClick={handleSearch} style={styles.button} disabled={loading}>
+          {loading ? 'Searching...' : 'Find Documents'}
+        </button>
 
-      {/* Error Display */}
-      {error && <p style={styles.error}>{error}</p>}
+        {/* Error Display */}
+        {error && <p style={styles.error}>{error}</p>}
 
-      {/* Display Documents */}
-      {documents.length > 0 && (
-        <div style={styles.documentsContainer}>
-          <h3>Documents</h3>
-          {documents.map((doc, index) => (
-            <div key={index} style={styles.document}>
-              <h4>{doc.category}</h4> {/* Document category (ID) as heading */}
-              {/* Render links for document URLs */}
-              <ul>
-                {Object.entries(doc)
-                  .filter(([key, value]) => key !== 'category') // Skip the 'category' key
-                  .map(([key, value], idx) => (
-                    <li key={idx}>
-                      <a href={value} target="_blank" rel="noopener noreferrer">
-                        {key}
-                      </a>
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      )}
+        {/* Display Documents */}
+        {documents.length > 0 && (
+          <div style={styles.documentsContainer}>
+            <h3 style={styles.documentsTitle}>Documents</h3>
+            {documents.map((doc, index) => (
+              <div key={index} style={styles.documentCard}>
+                <h4 style={styles.documentCategory}>{doc.category}</h4> {/* Document category (ID) as heading */}
+                {/* Render links for document URLs */}
+                <ul style={styles.documentLinks}>
+                  {Object.entries(doc)
+                    .filter(([key, value]) => key !== 'category') // Skip the 'category' key
+                    .map(([key, value], idx) => (
+                      <li key={idx} style={styles.documentLinkItem}>
+                        <a href={value} target="_blank" rel="noopener noreferrer" style={styles.documentLink}>
+                          {key}
+                        </a>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
 
 const styles = {
+  fullPage: {
+    minHeight: '100vh', // Ensures the div takes up at least the full viewport height
+    width: '100vw', // Ensures the div takes up the full viewport width
+    backgroundImage: `url(${bgImage})`,
+    backgroundSize: 'cover', // Ensures the image covers the entire page
+    backgroundPosition: 'center', // Centers the image
+    backgroundRepeat: 'no-repeat', // Prevents image repetition
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '20px', // Add padding to avoid content being clipped
+    boxSizing: 'border-box', // Includes padding and border in element's total width and height
+  },
   container: {
     textAlign: 'center',
     padding: '20px',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)', // Slightly transparent background for readability
+    borderRadius: '8px', // Rounded corners
+    maxWidth: '800px', // Adjust as needed
+    width: '100%', // Responsive width
+    boxSizing: 'border-box', // Includes padding and border in element's total width and height
+  },
+  header: {
+    margin: '0 0 20px 0', // Add margin to separate header from content
+    fontFamily: 'Arial, sans-serif',
+    fontSize: '24px',
   },
   input: {
     display: 'block',
-    margin: '10px auto',
+    margin: '15px auto', // Increased margin for better spacing
     padding: '10px',
-    width: '80%',
-    maxWidth: '300px',
+    width: '100%',
+    maxWidth: '400px',
+    fontFamily: 'Arial, sans-serif',
+    fontSize: '16px',
   },
   button: {
     padding: '10px 20px',
@@ -105,20 +133,54 @@ const styles = {
     color: '#fff',
     border: 'none',
     cursor: 'pointer',
+    marginTop: '20px',
+    fontFamily: 'Arial, sans-serif',
+    fontSize: '16px',
   },
   error: {
     color: 'red',
     marginTop: '10px',
+    fontFamily: 'Arial, sans-serif',
+    fontSize: '14px',
   },
   documentsContainer: {
     marginTop: '20px',
     textAlign: 'left',
+    padding: '10px',
   },
-  document: {
+  documentsTitle: {
+    margin: '0 0 20px 0', // Add margin to separate title from documents
+    fontFamily: 'Arial, sans-serif',
+    fontSize: '20px',
+    fontWeight: 'bold',
+  },
+  documentCard: {
     marginBottom: '20px',
     border: '1px solid #ddd',
-    padding: '10px',
+    padding: '15px',
+    borderRadius: '8px',
+    backgroundColor: '#f9f9f9',
+  },
+  documentCategory: {
+    marginBottom: '10px',
+    fontSize: '18px',
+    fontWeight: 'bold',
+    fontFamily: 'Arial, sans-serif',
+  },
+  documentLinks: {
+    listStyleType: 'none',
+    padding: '0',
+  },
+  documentLinkItem: {
+    marginBottom: '10px',
+  },
+  documentLink: {
+    color: '#007bff',
+    textDecoration: 'none',
+    fontFamily: 'Arial, sans-serif',
+    fontSize: '16px',
   },
 };
 
 export default IndividualDashboard;
+

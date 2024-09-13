@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import app from '../../firebase/config'
 import { auth, firestore } from '../../firebase/config';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc, doc, getDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import bgImage from '../assets/bg4.jpg';
 
 const Login = () => {
   const [login, setLogin] = useState('');
@@ -79,60 +79,75 @@ const Login = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <input
-          type="text"
-          placeholder="Login"
-          value={login}
-          onChange={(e) => setLogin(e.target.value)}
-          style={styles.input}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={styles.input}
-        />
-        <button
-          type="submit"
-          style={styles.submitButton}
-          disabled={isLoggingIn}
-        >
-          {isLoggingIn ? 'Loading...' : 'Submit'}
-        </button>
-      </form>
-      <div style={styles.buttonContainer}>
-        <button
-          onClick={handleSignUp}
-          style={styles.sideButton}
-          disabled={isSigningUp}
-        >
-          {isSigningUp ? 'Loading...' : 'Sign Up'}
-        </button>
-        <button onClick={handleAuthorization} style={styles.sideButton}>
-          Authorization
-        </button>
+    <div style={styles.fullPage}>
+      <div style={styles.container}>
+        <h2 style={styles.header}>Login</h2>
+        <form onSubmit={handleSubmit} style={styles.form}>
+          <input
+            type="text"
+            placeholder="Login"
+            value={login}
+            onChange={(e) => setLogin(e.target.value)}
+            style={styles.input}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={styles.input}
+          />
+          <button
+            type="submit"
+            style={styles.submitButton}
+            disabled={isLoggingIn}
+          >
+            {isLoggingIn ? 'Loading...' : 'Submit'}
+          </button>
+        </form>
+        <div style={styles.buttonContainer}>
+          <button
+            onClick={handleSignUp}
+            style={styles.sideButton}
+            disabled={isSigningUp}
+          >
+            {isSigningUp ? 'Loading...' : 'Sign Up'}
+          </button>
+          <button onClick={handleAuthorization} style={styles.sideButton}>
+            Authorization
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
 const styles = {
+  fullPage: {
+    height: '100vh', /* Ensures the div takes up the full viewport height */
+    width: '100vw', /* Ensures the div takes up the full viewport width */
+    backgroundImage: `url(${bgImage})`,
+    backgroundSize: 'cover', // Ensures the image covers the entire page
+    backgroundPosition: 'center', // Centers the image
+    backgroundRepeat: 'no-repeat', // Prevents image repetition
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     textAlign: 'center',
-    padding: '50px',
+    padding: '60px',
     maxWidth: '400px',
-    margin: '0 auto',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Optional: Add a background color to make the content more readable
+    borderRadius: '20px', // Optional: Add rounded corners to the container
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
+
   },
   input: {
-    margin: '10px 0',
+    margin: '10px 0px',
     padding: '10px',
     width: '100%',
     boxSizing: 'border-box',
@@ -151,12 +166,12 @@ const styles = {
     marginTop: '20px',
   },
   sideButton: {
-    padding: '10px 20px',
+    padding: '10px 10px',
     backgroundColor: '#6c757d',
     color: '#fff',
     border: 'none',
     cursor: 'pointer',
-    width: '45%',
+    width: '48%',
   },
 };
 
