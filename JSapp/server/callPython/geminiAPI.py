@@ -31,7 +31,7 @@ class Gemini_Model:
     }
 
       self.model = genai.GenerativeModel(
-        model_name="gemini-1.5-pro",
+        model_name="gemini-1.5-flash",
         generation_config=self.generation_config,
         # safety_settings = Adjust safety settings
         # See https://ai.google.dev/gemini-api/docs/safety-settings
@@ -51,7 +51,7 @@ class Gemini_Model:
 
     '''
       prompt1 = f'check the consistency between application document [{application}] and verification document [{verification}] and return a consistency score (1-100) and give the summary of validation in less than 30 words'
-      response = self.model.generate_content([prompt1])
+      response = self.model.generate_content( [prompt1])
       # print(response)
       return response.text
 
