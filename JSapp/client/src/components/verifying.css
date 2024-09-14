@@ -147,4 +147,38 @@ body {
   margin: 5px 0;
 }
 
-  
+/* Verification Result Styles */
+.user-verification-result {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.user-verification-result span {
+  margin-left: 10px;
+}
+
+.verification-success {
+  color: green;
+}
+
+.verification-failure {
+  color: red;
+}
+
+.icon {
+  font-size: 1.5rem;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.success-icon::before {
+  content: "✔️"; /* Unicode check mark */
+}
+
+.failure-icon::before {
+  content: "❌"; /* Unicode cross mark */
+}

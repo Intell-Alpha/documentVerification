@@ -60,7 +60,10 @@ const IssuingDashboard = () => {
 
           await setDoc(docRef, { [documentId]: url }, { merge: true });
           console.log('File uploaded successfully');
-          open(url);
+          // open(url);
+          setDocumentId();
+          setFile();
+          
         });
       } catch (error) {
         console.log(error);

@@ -76,8 +76,8 @@ class App:
 
 # cat = ['identity']
 
-# applicationDocuments = ['https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/A58z2z9qSETixNDNzmC5LRzvrg42application-documents%2FeducationApplication.png?alt=media&token=9f383bac-c24c-45d2-b201-5bb55e1080b8']
-# verificationDocuments = ['https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2FCBIT%20ID%20card?alt=media&token=ace4435e-f8a8-4390-a27a-866714f05c58', 'https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/nla0LKeWGSNmXWm1U2W5jG7YYwL2%2FMarks%20memo%20sem%203?alt=media&token=17ff67e9-7f06-4af2-a01d-c87ae9a77380']
+# applicationDocuments = ["https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/H7bw9v6nB9eUMHQiXJSbw98zsaF2%2Fpassport?alt=media&token=8bec62a2-6f8c-4a0e-a9e1-0ee4e91fc2fe"]
+# verificationDocuments = ["https://firebasestorage.googleapis.com/v0/b/documentverification-b99ee.appspot.com/o/H7bw9v6nB9eUMHQiXJSbw98zsaF2%2Flicense?alt=media&token=2efcdf08-9d63-4360-80bb-7ee1d0be6bec"]
 # params = App.runMain(category=cat, application=applicationDocuments, verification=verificationDocuments)
 # print(params[0])
 # print(params[1])

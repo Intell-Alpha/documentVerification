@@ -8,6 +8,7 @@ class Docverification:
     def returnText(self):
         # img = cv2.imread(self.image_path)
         txt = pytesseract.image_to_string(self.image)
+        # print(txt)
         return txt
 
 # dd = Docverification(r'C:\Users\kaush\Documents\intelAlpha\documentVerification\sampleImages\LicenseKaushal.png')

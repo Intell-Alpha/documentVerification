@@ -115,7 +115,14 @@ const VerifyingDashboard = () => {
       const applicationList = await uploadCurrentFiles(files);
       const categoryList = [category];
       const verificationList = await getCategoryDocuments(category);
-
+      console.log(applicationList.length)
+      console.log(categoryList)
+      console.log(verificationList.length)
+      if(verificationList.length <= 0){
+        alert("No documents found for this category");
+        setVerificationResult([0, "No documents were found in this category"])
+        return;
+      }
       const result = await validateDocuments(categoryList, applicationList, verificationList);
       setVerificationResult(result);
     };
@@ -147,8 +154,8 @@ const VerifyingDashboard = () => {
 
         {verificationResult && (
           <div className="verification-result">
-            <p><strong>Summary:</strong> {verificationResult.summary}</p>
-            <p><strong>Score:</strong> {verificationResult.score}</p>
+            <p><strong>Summary:</strong> {verificationResult[1]}</p>
+            <p><strong>Score:</strong> {verificationResult[0]}</p>
           </div>
         )}
       </div>
@@ -157,8 +164,10 @@ const VerifyingDashboard = () => {
 
   const handleUserVerify = async () => {
     try {
-      const colRef = doc(firestore, 'users', userID);
+      const path = 'users/'+userID+'/authorization'
+      const colRef = doc(firestore, path, 'credentials');
       const snapshot = await getDoc(colRef);
+      console.log(snapshot.data())
       setUserVerified(snapshot.exists());
     } catch (error) {
       setUserVerified(false);
@@ -170,21 +179,22 @@ const VerifyingDashboard = () => {
       <img src="/logo_pravah.png" alt="Pravah Logo" className="logo" /> {/* Add logo */}
       <h1 className="dashboard-heading">Verifying Dashboard</h1>
       <div className="user-verification-section">
-        <input
-          type="text"
-          placeholder="Enter UserID"
-          value={userID}
-          onChange={(e) => setUserID(e.target.value)}
-          className="user-id-input"
-        />
-        <button onClick={handleUserVerify} className="verify-user-btn">
-          Verify User
-        </button>
-        {userVerified !== null && (
-          <p className="user-verification-result">
-            {userVerified ? 'User exists!' : 'User does not exist!'}
-          </p>
-        )}
+          <input
+            type="text"
+            placeholder="Enter UserID"
+            value={userID}
+            onChange={(e) => setUserID(e.target.value)}
+            className="user-id-input"
+          />
+          <button onClick={handleUserVerify} className="verify-user-btn">
+            Verify User
+          </button>
+          {userVerified !== null && (
+            <p className={`user-verification-result ${userVerified ? 'verification-success' : 'verification-failure'}`}>
+              <span className={`icon ${userVerified ? 'success-icon' : 'failure-icon'}`}></span>
+              {userVerified ? 'User exists!' : 'User does not exist!'}
+            </p>
+          )}
       </div>
 
       {catAccess.map((category, index) => (
