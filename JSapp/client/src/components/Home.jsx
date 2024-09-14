@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import bgImage from '../assets/bg3.png'; // Adjust the path according to your file structure
-
+import Chatbot from './chatbot';
 const Home = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false); // State for loading
@@ -104,6 +104,7 @@ const Home = () => {
           </CardContent>
         </Card>
       </Content>
+      <Chatbot/>
     </Container>
   );
 };
