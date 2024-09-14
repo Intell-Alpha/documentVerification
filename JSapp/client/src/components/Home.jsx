@@ -19,7 +19,12 @@ const Home = () => {
 
   // Function to handle section button clicks
   const handleSectionClick = (section) => {
+
+    // Toggle the active section: if it's already the active section, set to an empty string to close the card
+    setActiveSection(prevSection => (prevSection === section ? '' : section));
+
     setActiveSection(section);
+
   };
 
   return (
@@ -47,7 +52,9 @@ const Home = () => {
 
         <Card visible={activeSection === 'about'}>
           <CardContent>
+
             {/* Add your content for "About Us" here */}
+
             <h2>About Us</h2>
             <p>
               We are committed to providing the best services for reliable authentication and verification.
@@ -63,7 +70,9 @@ const Home = () => {
 
         <Card visible={activeSection === 'mission'}>
           <CardContent>
+
             {/* Add your content for "Our Mission" here */}
+
             <h2>Our Mission</h2>
             <p>
               Our mission is to revolutionize the field of authentication and verification by providing cutting-edge
@@ -79,7 +88,9 @@ const Home = () => {
 
         <Card visible={activeSection === 'vision'}>
           <CardContent>
-            {/* Add your content for "Our Vision" here */}
+
+          {/* Add your content for "Our Vision" here */}
+
             <h2>Our Vision</h2>
             <p>
               Our vision is to be the leading provider of innovative solutions in the field of authentication and verification.
@@ -149,8 +160,18 @@ const LoginButton = styled.button`
   border: none;
   cursor: pointer;
   //margin-bottom: 50px; // Adds space below the button
+
+  border-radius: 15px;
+  font-size: 16px;
+
+  &:hover {
+    background-color: #0e55a0;
+    color: #fff;
+  }
+
   border-radius: 5px;
   font-size: 16px;
+
 `;
 
 const Sidebar = styled.div`

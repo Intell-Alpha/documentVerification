@@ -52,7 +52,7 @@ Prerequisites
 - Python 3.x
 
 Clone the Repository
-git clone https://github.com/Intell-Alpha/documentVerification.git
+git clone https://github.com/Intell-Alpha/PRAVAH.git
 
 Install Dependencies
 npm install
