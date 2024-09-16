@@ -67,53 +67,41 @@ const Chatbot = () => {
 
 
   return (
-    <div className='chat-container'>
-      {!isOpen ? (
+    <div className="chat-container">
+      {!isOpen && (
         <div className="chat-icon" onClick={toggleChatbot}>
           <AiOutlineMessage size={40} />
         </div>
-      ) : (
-        <div className="chat-window">
-          <div className="chat-header">
-            <h2>PRAVAH Bot Assistant</h2>
-            <AiOutlineClose size={24} onClick={toggleChatbot} className="close-btn" />
-          </div>
-          <div className="chat-body" ref={chatBodyRef}>
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`message ${message.sender === 'bot' ? 'bot-message' : 'user-message'}`}
-              >
-                {message.text}
-              </div>
-            ))}
-          </div>
-          {/* <div className="default-questions">
-            {defaultQuestions.map((question, index) => (
-              <button
-                key={index}
-                className="default-question-btn"
-                onClick={() => handleClickDefaultQuestion(question)}
-              >
-                {question}
-              </button>
-            ))}
-          </div> */}
-          <div className="chat-input-container">
-          <input
-              type="text"
-              value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Type your message here..."
-              className="chat-input"
-            />
-            <button className="send-btn" onClick={handleSendMessage}>
-              <AiOutlineSend size={24} />
-            </button>
-          </div>
-        </div>
       )}
+      <div className={`chat-window ${isOpen ? 'open' : ''}`}>
+        <div className="chat-header">
+          <h2>PRAVAH Bot</h2>
+          <AiOutlineClose size={24} onClick={toggleChatbot} className="close-btn" />
+        </div>
+        <div className="chat-body" ref={chatBodyRef}>
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className={`message ${message.sender === 'bot' ? 'bot-message' : 'user-message'}`}
+            >
+              {message.text}
+            </div>
+          ))}
+        </div>
+        <div className="chat-input-container">
+          <input
+            type="text"
+            value={inputMessage}
+            onChange={(e) => setInputMessage(e.target.value)}
+            placeholder="Type your message here..."
+            className="chat-input"
+            onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+          />
+          <button className="send-btn" onClick={handleSendMessage}>
+            <AiOutlineSend size={20} />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
