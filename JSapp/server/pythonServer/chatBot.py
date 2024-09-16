@@ -1,16 +1,17 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Blueprint
 import google.generativeai as genai
 from flask_cors import CORS
 
 
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
-CORS(app)
+# CORS(app)
+chatbot_bp = Blueprint('chatbot', __name__)
 # Configure the API key for Google Gemini
 genai.configure(api_key="AIzaSyDBNCN6BnCmRkTgDZU7xmxWxkX4hZNVG6Q")
 
-@app.route('/chat', methods=['POST'])
+@chatbot_bp.route('/chat', methods=['POST'])
 def chat():
     generation_config = {
         "temperature": 1,
@@ -170,7 +171,7 @@ Customization Options
 “Explore any customization options available for your dashboard or document handling.”
 '''
         # Use the Gemini model to generate a response based on user input
-        prompt = f'You are pravah chat bot assistant based on the text {background}, and sample conversations {sampleInteration} answer the question {user_input} in 25-30 words'
+        prompt = f'You are pravah chat bot assistant based on the text {background}, and sample conversations {sampleInteration} answer the question {user_input} in 25-30 words. answer only if the question is related to PRAVAH'
         response = model.generate_content([prompt])
 
         # bot_reply = response.candidates[0]['output']
@@ -180,6 +181,6 @@ Customization Options
     except Exception as e:
         return jsonify({'error': str(e)})
 
-if __name__ == '__main__':
-    app.run(debug=True, port=8000)
+# if __name__ == '__main__':
+#     app.run(debug=True, port=8000)
     

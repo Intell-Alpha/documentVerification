@@ -67,7 +67,7 @@ const VerifyingDashboard = () => {
 
   const validateDocuments = async (list1, list2, list3) => {
     try {
-      const response = await fetch('http://localhost:5000/validate-documents', {
+      const response = await fetch('http://localhost:5000/api/validate-documents', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
