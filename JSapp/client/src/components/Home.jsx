@@ -11,10 +11,11 @@ const Home = () => {
   // Function to handle login button click
   const handleLoginClick = () => {
     setIsLoading(true); // Set loading state to true
-    setTimeout(() => {
-      // Simulate an async operation like API call, then navigate
-      navigate('/login');
-    }, 2000); // Simulate a delay of 2 seconds
+    navigate('/login');
+    // setTimeout(() => {
+    //   // Simulate an async operation like API call, then navigate
+    //   navigate('/login');
+    // }, 2000); // Simulate a delay of 2 seconds
   };
 
   // Function to handle section button clicks

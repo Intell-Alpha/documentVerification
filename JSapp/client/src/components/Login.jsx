@@ -58,6 +58,11 @@ const Login = () => {
 
   const handleSignUp = async () => {
     setIsSigningUp(true);
+    if(aadharNumber.length !== 12){
+      alert('invalid aadhar number');
+      setIsSigningUp(false);
+      return
+    }
     try {
       const aadharDocRef = doc(firestore, 'aadhar', 'aadharID');
       const aadharDoc = await getDoc(aadharDocRef);

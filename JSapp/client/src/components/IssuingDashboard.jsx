@@ -3,6 +3,8 @@ import { firestore, auth, storage } from '../../firebase/config';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
+// import encryptFile from './encryption/Xsaalsa20'; // Import the function
+
 
 import bgImage from '../assets/bg4.jpg'; // Make sure this path is correct
 
@@ -41,6 +43,7 @@ const IssuingDashboard = () => {
   }
 
   async function handleUpload() {
+    // encryptFile(file)
     if (file && ['application/pdf', 'image/jpeg', 'image/png'].includes(file.type)) {
       const StoragePath = individualId + '/' + documentId;
       const fireStorePath = 'users/' + individualId + '/documents';

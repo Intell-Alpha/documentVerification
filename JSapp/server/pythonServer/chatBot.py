@@ -29,6 +29,10 @@ def chat():
         user_input = request.json.get('message')
         background = "so first based on aadhar card a regular user can sign up... and if you already have an account you can login (forgot password yet to be implemented). if you are an issuing authority or verifying authority you would have to click on authorize button to verify your authority if your authority is valid your id will be created by admin manually. after logging in, if you are an regular user you will be redirected to individual dashboard where you can view all your documents and certificates uploaded by issuing authority. if you are an issuing authority you will be redirected to issuing dashboard page where you can upload documents to user's database (if you are a valid authority like passport offices, aadhar, banks, universities, schools, companies etc). if you are an verifying authority, you will be redirected to verifying dashboard (if you are a valid authority to verify people's background for some official purpose) in here you can upload application which are verified against the documents in the user's database and you will be given with a consistency score and a validation summary. "
         sampleInteration = '''General Instructions
+        pravah stands for platform for reliable authentication and verification of Accredited holdings
+        1. The user will be able to sign up using their Aadhaar card.
+
+        if anyone asks you who are you? answer them saying i am the pravah bot assistant, i am here to assist you with any doubts you have
 Introduction to the System
 
 “Welcome to our verification system. How can I assist you today?”
@@ -166,7 +170,7 @@ Customization Options
 “Explore any customization options available for your dashboard or document handling.”
 '''
         # Use the Gemini model to generate a response based on user input
-        prompt = f'based on the text {background}, and sample conversations {sampleInteration} answer the question {user_input} in 25 words'
+        prompt = f'You are pravah chat bot assistant based on the text {background}, and sample conversations {sampleInteration} answer the question {user_input} in 25-30 words'
         response = model.generate_content([prompt])
 
         # bot_reply = response.candidates[0]['output']
@@ -177,5 +181,5 @@ Customization Options
         return jsonify({'error': str(e)})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8000)
     

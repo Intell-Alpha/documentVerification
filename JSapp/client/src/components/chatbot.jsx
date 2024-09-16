@@ -19,7 +19,7 @@ const Chatbot = () => {
 
       try {
         // Make a request to the Flask backend (localhost or hosted URL)
-        const response = await axios.post('http://localhost:5000/chat', {
+        const response = await axios.post('http://localhost:8000/chat', {
           message: inputMessage,
         });
 
