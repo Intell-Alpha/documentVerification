@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { AiOutlineMessage, AiOutlineClose } from 'react-icons/ai';
+import React, { useState, useRef, useEffect } from 'react';
+import { AiOutlineMessage, AiOutlineClose, AiOutlineSend } from 'react-icons/ai';
 import './Chatbot.css';
 import axios from 'axios'; // To make API calls
 
@@ -10,9 +10,25 @@ const Chatbot = () => {
   ]);
   const [inputMessage, setInputMessage] = useState('');
 
+  const chatBodyRef = useRef(null);
+
+  // Scroll chat window to bottom whenever messages are updated
+  useEffect(() => {
+    if (chatBodyRef.current) {
+      chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   const toggleChatbot = () => setIsOpen(!isOpen);
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
+  };
+
   const handleSendMessage = async () => {
+    setInputMessage('');  // Clear the input
     if (inputMessage.trim()) {
       const userMessage = { sender: 'user', text: inputMessage };
       setMessages([...messages, userMessage]);
@@ -34,12 +50,24 @@ const Chatbot = () => {
         setMessages((prevMessages) => [...prevMessages, botError]);
       }
 
-      setInputMessage('');  // Clear the input
+      
     }
   };
 
+  const handleClickDefaultQuestion = (question) => {
+    setInputMessage(question);
+    handleSendMessage();
+  };
+
+  const defaultQuestions = [
+    'What services do you offer?',
+    'How can I upload documents?',
+    'How do I verify my identity?',
+  ];
+
+
   return (
-    <div className="chat-container">
+    <div className='chat-container'>
       {!isOpen ? (
         <div className="chat-icon" onClick={toggleChatbot}>
           <AiOutlineMessage size={40} />
@@ -50,7 +78,7 @@ const Chatbot = () => {
             <h2>PRAVAH Bot Assistant</h2>
             <AiOutlineClose size={24} onClick={toggleChatbot} className="close-btn" />
           </div>
-          <div className="chat-body">
+          <div className="chat-body" ref={chatBodyRef}>
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -60,16 +88,28 @@ const Chatbot = () => {
               </div>
             ))}
           </div>
+          {/* <div className="default-questions">
+            {defaultQuestions.map((question, index) => (
+              <button
+                key={index}
+                className="default-question-btn"
+                onClick={() => handleClickDefaultQuestion(question)}
+              >
+                {question}
+              </button>
+            ))}
+          </div> */}
           <div className="chat-input-container">
-            <input
+          <input
               type="text"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
+              onKeyPress={handleKeyPress}
               placeholder="Type your message here..."
               className="chat-input"
             />
             <button className="send-btn" onClick={handleSendMessage}>
-              Send
+              <AiOutlineSend size={24} />
             </button>
           </div>
         </div>

@@ -5,6 +5,7 @@
     z-index: 1000;
   }
   
+  
   .chat-icon {
     background-color: #007bff;
     padding: 10px;
@@ -85,7 +86,7 @@
   
   .send-btn {
     background-color: #007bff;
-    color: white;
+    color: #ffffff;
     padding: 10px 15px;
     border: none;
     margin-left: 8px;
@@ -93,3 +94,22 @@
     cursor: pointer;
   }
   
+  .default-questions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .default-question-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin: 5px 0;
+    cursor: pointer;
+    font-size: 12px;
+    white-space: nowrap;
+  }
