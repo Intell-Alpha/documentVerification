@@ -90,7 +90,7 @@ const IssuingDashboard = () => {
         <label style={styles.label} htmlFor="individualId">Database ID of user</label>
         <input
           id="individualId"
-          type="text"
+          type="password"
           placeholder="User ID"
           value={individualId}
           onChange={(e) => setIndividualId(e.target.value)}

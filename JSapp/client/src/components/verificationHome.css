@@ -1,95 +1,109 @@
-/* Verification Home Page Styles */
 .verification-home {
-    text-align: center;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    min-height: 100vh;
-  }
-  
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .new-app-btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-bottom: 20px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .new-app-btn:disabled {
-    background-color: #6c757d;
-    cursor: not-allowed;
-  }
-  
-  .new-app-btn:hover {
-    background-color: #0056b3;
-  }
-  
-  .application-list {
-    list-style-type: none;
-    padding: 0;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .application-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    margin-bottom: 10px;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .application-item span {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .open-app-btn, 
-  .delete-app-btn {
-    padding: 8px 12px;
-    font-size: 0.9rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .open-app-btn {
-    background-color: #28a745;
-    color: #fff;
-    margin-right: 10px;
-  }
-  
-  .open-app-btn:hover {
-    background-color: #218838;
-  }
-  
-  .delete-app-btn {
-    background-color: #dc3545;
-    color: #fff;
-  }
-  
-  .delete-app-btn:hover {
-    background-color: #c82333;
-  }
-  
-  .application-list p {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #888;
-  }
-  
+  width: 100%;
+  padding: 20px;
+  text-align: left;
+}
+
+.pravah-logo {
+  display: block;
+  margin: 0 auto;
+  width: 150px;
+  margin-bottom: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; /* Align elements by the base line */
+  gap: 20px;
+}
+
+.new-app-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px; /* Smoother edges */
+  transition: background-color 0.3s ease;
+}
+
+.new-app-btn:hover {
+  background-color: #0056b3; /* Hover color */
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px;
+  width: 300px; /* Increased size */
+  /* height: 70px; */
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  margin-left: 10px;
+  width: 100%;
+  height: 30px;
+}
+
+.application-list {
+  margin-top: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+.application-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #f8f9fa;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.application-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.spacer {
+  margin-top: 5px; /* Add spacing between App ID and User ID */
+}
+
+.application-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.open-app-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border-radius: 5px; /* Smoother edges */
+  transition: background-color 0.3s ease;
+}
+
+.open-app-btn:hover {
+  background-color: #0056b3; /* Hover color */
+}
+
+.delete-icon {
+  color: red;
+  cursor: pointer;
+  font-size: 24px; /* Increased size */
+  transition: color 0.3s ease;
+}
+
+.delete-icon:hover {
+  color: #ff4d4d; /* Hover color */
+}

@@ -4,10 +4,12 @@ import { doc, getDocs, collection, addDoc, deleteDoc, getDoc } from 'firebase/fi
 import { ref, deleteObject } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
 import './verificationHome.css';
+import { AiOutlineSearch, AiFillDelete } from 'react-icons/ai'; // Import icons
 
 const VerificationHome = () => {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,27 +31,14 @@ const VerificationHome = () => {
   const createNewApplication = async () => {
     setLoading(true);
     try {
-      // Get authorized categories
       const path = `users/${auth.currentUser.uid}/authorization`;
       const snapshot = await getDoc(doc(firestore, path, 'credentials'));
       const catAccess = snapshot.data()['categoryAccess'];
 
-      // Create new application
-      // const newApp = {
-      //   userID: '', // User ID to be input during verification
-      //   categories: catAccess.reduce((acc, cat) => {
-      //     acc[cat] = {
-      //       files: {},  // Initialize as an empty object for filename: filelink format
-      //       score: null,
-      //       summary: null
-      //     };
-      //     return acc;
-      //   }, {})
-      // };
-      const newApp = {}
+      const newApp = {};
 
       const appCollectionPath = `users/${auth.currentUser.uid}/applications`;
-      await addDoc(collection(firestore, appCollectionPath), newApp);  // Firebase generates unique ID
+      await addDoc(collection(firestore, appCollectionPath), newApp);
       fetchApplications(); // Refresh the list after creation
     } catch (error) {
       console.error('Error creating new application:', error);
@@ -64,16 +53,14 @@ const VerificationHome = () => {
       const appDoc = await getDoc(doc(firestore, appDocPath));
       const appData = appDoc.data();
 
-      // Delete files from storage
       for (const category in appData.categories) {
         const categoryFiles = appData.categories[category].files;
         for (const filename in categoryFiles) {
-          const fileRef = ref(storage, categoryFiles[filename]); // The file link
-          await deleteObject(fileRef); // Delete file from storage
+          const fileRef = ref(storage, categoryFiles[filename]);
+          await deleteObject(fileRef);
         }
       }
 
-      // Delete application from Firestore
       await deleteDoc(doc(firestore, appDocPath));
       fetchApplications(); // Refresh the list after deletion
     } catch (error) {
@@ -83,25 +70,52 @@ const VerificationHome = () => {
   };
 
   const openApplication = (appID) => {
-    // const path = '/VerifyingApplication/'+appID;
-    navigate('/VerifyingApplication',  { state: appID });
-    // alert(appID+ " navigated...")
+    navigate('/VerifyingApplication', { state: appID });
   };
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredApplications = applications.filter(app => {
+    return (
+      app.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (app.userID && app.userID.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+  });
 
   return (
     <div className="verification-home">
-      <h1>Verification Dashboard</h1>
-      <button className="new-app-btn" onClick={createNewApplication} disabled={loading}>
-        {loading ? 'Creating...' : 'Create New Application'}
-      </button>
-      
-      {applications.length > 0 ? (
+      <img src='/logo_pravah.png' alt="Pravah Logo" className="pravah-logo" />
+      <div className="header">
+        <h1>Applications</h1>
+        <button className="new-app-btn" onClick={createNewApplication} disabled={loading}>
+          {loading ? 'Creating...' : 'Create New Application'}
+        </button>
+        <div className="search-bar">
+          <AiOutlineSearch size={20} />
+          <input
+            type="text"
+            placeholder="Search by Application ID or User ID"
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+        </div>
+      </div>
+
+      {filteredApplications.length > 0 ? (
         <ul className="application-list">
-          {applications.map(app => (
+          {filteredApplications.map(app => (
             <li key={app.id} className="application-item">
-              <span>{app.id}</span> {/* Firebase-generated application ID */}
-              <button className="open-app-btn" onClick={() => openApplication(app.id)}>Open</button>
-              <button className="delete-app-btn" onClick={() => deleteApplication(app.id)}>Delete</button>
+              <div className="application-info">
+                <span><strong>Application ID:</strong> {app.id}</span>
+                <span className="spacer"></span> {/* Add spacing */}
+                <span><strong>User ID:</strong> {app.userID ? app.userID : 'No user associated'}</span>
+              </div>
+              <div className="application-actions">
+                <button className="open-app-btn" onClick={() => openApplication(app.id)}>Open</button>
+                <AiFillDelete className="delete-icon" onClick={() => deleteApplication(app.id)} />
+              </div>
             </li>
           ))}
         </ul>
