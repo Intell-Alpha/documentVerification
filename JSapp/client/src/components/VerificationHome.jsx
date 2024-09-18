@@ -35,17 +35,18 @@ const VerificationHome = () => {
       const catAccess = snapshot.data()['categoryAccess'];
 
       // Create new application
-      const newApp = {
-        userID: '', // User ID to be input during verification
-        categories: catAccess.reduce((acc, cat) => {
-          acc[cat] = {
-            files: {},  // Initialize as an empty object for filename: filelink format
-            score: null,
-            summary: null
-          };
-          return acc;
-        }, {})
-      };
+      // const newApp = {
+      //   userID: '', // User ID to be input during verification
+      //   categories: catAccess.reduce((acc, cat) => {
+      //     acc[cat] = {
+      //       files: {},  // Initialize as an empty object for filename: filelink format
+      //       score: null,
+      //       summary: null
+      //     };
+      //     return acc;
+      //   }, {})
+      // };
+      const newApp = {}
 
       const appCollectionPath = `users/${auth.currentUser.uid}/applications`;
       await addDoc(collection(firestore, appCollectionPath), newApp);  // Firebase generates unique ID

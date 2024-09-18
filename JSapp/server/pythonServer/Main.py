@@ -2,7 +2,7 @@
 
 from flask import Flask
 from flask_cors import CORS
-from chatbot import chatbot_bp    # Import the chatbot blueprint
+from chatBot import chatbot_bp    # Import the chatbot blueprint
 from validation import validation_bp  # Import the validation blueprint
 
 # Initialize the main Flask application

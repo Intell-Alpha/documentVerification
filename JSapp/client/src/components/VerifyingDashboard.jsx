@@ -275,8 +275,6 @@ const VerifyingDashboard = () => {
           <div className="verification-result">
             <p><strong>Summary:</strong> {verificationResult[1]}</p>
             <p><strong>Score:</strong> {verificationResult[0]}</p>
-            <p><strong>Summary:</strong> {verificationResult[1]}</p>
-            <p><strong>Score:</strong> {verificationResult[0]}</p>
           </div>
         )}
       </div>
@@ -329,14 +327,17 @@ const VerifyingDashboard = () => {
 
     const path = `users/${auth.currentUser.uid}/applications/${appID}`;
     try {
-      const snapshot = await setDoc(doc(firestore, path),  combinedObject);
+      await setDoc(doc(firestore, path),  combinedObject).then((snapshot) => {
+        navigate('/VerifyingHome')
+      });
     } catch (error){
       console.log(error);
     }
     // setIsSaving(false)
     // await fetchAppIdDetails()
     // console.log(accumulateInfo)
-
+    // alert("saved application")
+    
   }
 
   return (
@@ -375,7 +376,7 @@ const VerifyingDashboard = () => {
       ))}
 
       <button className="save-btn" onClick={() => handleSave()}>
-        {isSaving? 'Saving...':'Save'}
+        save and exit
       </button>
     </div>
   );
