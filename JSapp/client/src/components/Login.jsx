@@ -42,7 +42,7 @@ const Login = () => {
         } else if (newData === 'Issuing') {
           navigate('/IssuingDashboard');
         } else if (newData === 'Verifying') {
-          navigate('/VerifyingDashboard');
+          navigate('/VerifyingHome');
         } else {
           alert('You are not authorized to access this page');
         }

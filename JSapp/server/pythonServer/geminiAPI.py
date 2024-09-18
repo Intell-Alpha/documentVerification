@@ -50,7 +50,15 @@ class Gemini_Model:
       comments represents the validation comments between 10-15 words
 
     '''
-      prompt1 = f'check whether the information given in application: [{application}] is present in verification document texts: [{verification}] and return a consistency score (1-100) which gives what percent of application text matches with verification and give the summary of validation in less than 30 words'
+      prompt1 = f'''
+      check whether the {category}  information given in application: [{application}] is present in verification document texts: [{verification}] and return a consistency score (1-100) which gives what percent of application text matches with verification and give the summary of validation in less than 50 words.
+      NOTE:
+      - score is the percentage of application text present in the verification text.
+      - summary should **only** discuss the presence or absence of details from the application text, without referencing anything that is exclusive to the verification text.
+      '''
+      
+      
+
       response = self.model.generate_content([prompt1], safety_settings={
         HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
         HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,

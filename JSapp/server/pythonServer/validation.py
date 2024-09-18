@@ -41,7 +41,16 @@ class App:
             score = AIvalidator.getValidation(category, category_applicant_text, category_verification_text)
             self.validation.append(score)
         return self.validation
-
+    
+    def extract_summary(response):
+        # Regular expression to match the summary text after "Summary:"
+        match = re.search(r'Summary:\s*(.*)', response)
+        
+        if match:
+            return match.group(1).strip()
+        else:
+            return response
+        
     def runMain(category, application, verification):
         app = App(category, application, verification)
         val = app.generateScore()
@@ -50,7 +59,9 @@ class App:
         for i in val:
             scores.append(app.extract_numbers_from_multiline_string(i))
             finalTxt += i + "\n"
-        return [scores[0][0], finalTxt]
+
+        summary = App.extract_summary(finalTxt)
+        return [scores[0][0], summary]
 
     @staticmethod
     def read_image_from_url(url):

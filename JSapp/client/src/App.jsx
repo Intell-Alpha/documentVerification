@@ -5,6 +5,7 @@ import Login from './components/Login'; // Your existing Login component
 import IssuingDashboard from './components/IssuingDashboard';
 import VerifyingDashboard from './components/VerifyingDashboard';
 import IndividualDashboard from './components/IndividualDashboard';
+import VerificationHome from './components/VerificationHome';
 
 const App = () => {
   return (
@@ -18,7 +19,8 @@ const App = () => {
 
         {/* Existing dashboard routes */}
         <Route path="/IssuingDashboard" element={<IssuingDashboard />} />
-        <Route path="/VerifyingDashboard" element={<VerifyingDashboard />} />
+        <Route path="/VerifyingHome" element = {<VerificationHome/>}/>
+        <Route path="/VerifyingApplication" element={<VerifyingDashboard />} />
         <Route path="/IndividualDashboard" element={<IndividualDashboard />} />
       </Routes>
     </Router>
