@@ -275,6 +275,8 @@ const VerifyingDashboard = () => {
           <div className="verification-result">
             <p><strong>Summary:</strong> {verificationResult[1]}</p>
             <p><strong>Score:</strong> {verificationResult[0]}</p>
+            <p><strong>Summary:</strong> {verificationResult[1]}</p>
+            <p><strong>Score:</strong> {verificationResult[0]}</p>
           </div>
         )}
       </div>
@@ -287,6 +289,7 @@ const VerifyingDashboard = () => {
       const path = 'users/'+userID+'/authorization'
       const colRef = doc(firestore, path, 'credentials');
       const snapshot = await getDoc(colRef);
+      console.log(snapshot.data())
       console.log(snapshot.data())
       setUserVerified(snapshot.exists());
     } catch (error) {
