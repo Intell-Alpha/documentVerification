@@ -1,0 +1,136 @@
+General Instructions
+Introduction to the System
+
+“Welcome to our verification system. How can I assist you today?”
+“I’m here to help you with sign-ups, document uploads, and verifications.”
+User Role Overview
+
+“We have three types of users: Regular Users, Issuing Authorities, and Verifying Authorities. Which one are you?”
+Regular User
+Sign-Up Process
+
+“To sign up, please provide your Aadhaar card number.”
+“Ensure that your Aadhaar details match the records for a smooth sign-up process.”
+Login Process
+
+“If you have an existing account, you can log in using your credentials.”
+“Forgot password functionality is coming soon. For now, please contact support if you need assistance.”
+Dashboard Navigation
+
+“After logging in, you will be redirected to your personal dashboard.”
+“On your dashboard, you can view all documents and certificates uploaded by issuing authorities.”
+Viewing Documents
+
+“You can view your documents categorized by type, such as educational certificates or ID proofs.”
+Issuing Authority
+Authorization Process
+
+“As an issuing authority, you need to click on the authorize button to verify your authority.”
+“Once authorized, your ID will be created manually by an admin.”
+Uploading Documents
+
+“You can upload documents directly to a user’s database from your issuing dashboard.”
+“Ensure that the documents you upload are accurate and correctly categorized.”
+Document Categories
+
+“Upload documents in categories such as birth certificates, academic transcripts, or identification proofs.”
+Verifying Authority
+Authorization Process
+
+“Click on the authorize button to verify your authority as a verifying authority.”
+“Your ID will be created manually by an admin once your authority is validated.”
+Uploading Applications
+
+“Upload the application you wish to verify against the user’s documents.”
+“Ensure that the application details are clear and complete.”
+Document Verification
+
+“The system will compare the application with the user’s documents.”
+“You will receive a consistency score and a validation summary based on the comparison.”
+Receiving Validation Summary
+
+“You’ll get a detailed validation summary with comments on the consistency score.”
+Common Scenarios
+Failed Sign-Up
+
+“If sign-up fails, please check your Aadhaar details and try again.”
+“Contact support if the issue persists.”
+Failed Login
+
+“Ensure that you are entering the correct credentials. For help, contact support.”
+Authorization Issues
+
+“If you encounter issues with authorization, ensure your details match official records.”
+Document Upload Errors
+
+“If there’s an error while uploading documents, check the file format and size.”
+Application Verification Errors
+
+“Verify that the application and documents are correctly matched for accurate results.”
+Advanced Functionality
+Handling Multiple Roles
+
+“You can be a regular user, issuing authority, or verifying authority. Make sure you’re logged in with the correct role.”
+Security Measures
+
+“Your data and documents are securely stored. Only authorized personnel have access to them.”
+Document Categorization
+
+“Documents should be categorized correctly for proper validation and access.”
+AI Integration
+
+“Our AI provides consistency scores and validation summaries to enhance the verification process.”
+Admin Actions
+
+“Admins handle manual ID creation for authorities. Contact them if needed.”
+Profile Updates
+
+“Update your profile information as needed through your dashboard.”
+Access Issues
+
+“If you have trouble accessing features, ensure you have the correct permissions for your role.”
+Support Contact
+
+“For issues not covered here, please reach out to our support team.”
+Training & Help
+
+“Visit our help center for tutorials and guides on using the system.”
+Privacy Policy
+
+“Review our privacy policy to understand how your data is handled and protected.”
+Feedback Mechanism
+
+“Provide feedback on your experience to help us improve the system.”
+Feature Requests
+
+“If you have suggestions for new features, let us know through the feedback form.”
+System Maintenance
+
+“Check the system status page for any scheduled maintenance or outages.”
+Usage Limits
+
+“Be aware of any usage limits or quotas for document uploads and verifications.”
+Document Formats
+
+“Ensure documents are in supported formats (e.g., PDF, JPG, PNG) for smooth processing.”
+Error Handling
+
+“If you encounter errors, take note of the error message and contact support.”
+Data Backup
+
+“Regularly back up your important documents to avoid data loss.”
+System Updates
+
+“Keep an eye out for system updates or new features that may be released.”
+Account Security
+
+“Use strong passwords and keep your account details confidential.”
+Legal Compliance
+
+“Ensure that all documents and actions comply with relevant legal requirements.”
+User Training
+
+“Participate in training sessions to better understand how to use the system.”
+Customization Options
+
+“Explore any customization options available for your dashboard or document handling.”

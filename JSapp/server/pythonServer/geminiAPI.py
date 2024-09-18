@@ -22,13 +22,6 @@ class Gemini_Model:
         "response_mime_type": "text/plain",
       }
 
-      self.safetySettings = {
-        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_UNSPECIFIED: HarmBlockThreshold.BLOCK_NONE
-    }
 
       self.model = genai.GenerativeModel(
         model_name="gemini-1.5-flash",
@@ -50,18 +43,18 @@ class Gemini_Model:
       comments represents the validation comments between 10-15 words
 
     '''
-      prompt1 = f'check the consistency between application document [{application}] and verification document [{verification}] and return a consistency score (1-100) and give the summary of validation in less than 30 words'
-      response = self.model.generate_content( [prompt1])
+      prompt1 = f'''
+      check whether the {category}  information given in application: [{application}] is present in verification document texts: [{verification}] and return a consistency score (1-100) which gives what percent of application text matches with verification and give the summary of validation in less than 50 words.
+      NOTE:
+      - score is the percentage of application text present in the verification text.
+      - summary should **only** discuss the presence or absence of details from the application text, without referencing anything that is exclusive to the verification text.
+      '''
+      response = self.model.generate_content([prompt1], safety_settings={
+        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+        
+      })
       # print(response)
       return response.text
-
-
-# # Upload the file and print a confirmation.
-# sample_file = genai.upload_file(path=r"sampleImages\samplepassfront.jpg",
-#                             display_name="simple text")
-
-# print(f"Uploaded file '{sample_file.display_name}' as: {sample_file.uri}")
-
-# # file = genai.get_file(name=sample_file.name)
-# # print(f"Retrieved file '{file.display_name}' as: {sample_file.uri}")
-
