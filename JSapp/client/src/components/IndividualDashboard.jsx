@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { firestore, auth } from '../../firebase/config';
 import { collection, getDocs } from 'firebase/firestore';
 import bgImage from '../assets/bg4.jpg'; // Ensure this path is correct
+import { AiFillEdit, AiFillFile } from 'react-icons/ai';
+
 
 const IndividualDashboard = () => {
   const [documents, setDocuments] = useState([]); // Store fetched documents
@@ -102,12 +104,14 @@ const IndividualDashboard = () => {
               <div key={index} style={styles.documentCard}>
                 <h4 style={styles.documentCategory}>{doc.category}</h4>
                 <ul style={styles.documentLinks}>
+                  
                   {Object.entries(doc)
                     .filter(([key]) => key !== 'category') // Skip the 'category' key
                     .map(([key, value], idx) => (
                       <li key={idx} style={styles.documentLinkItem}>
+                        <AiFillFile size={15} color='grey' />
                         <a href={value} target="_blank" rel="noopener noreferrer" style={styles.documentLink}>
-                          {key}
+                          {' '}{key}
                         </a>
                       </li>
                     ))}
@@ -158,6 +162,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: '20px',
+    marginTop:'20px',
     position: 'relative',
     width: '100%',
     maxWidth: '400px',
@@ -195,6 +200,7 @@ const styles = {
     fontFamily: 'Arial, sans-serif',
     fontSize: '20px',
     fontWeight: 'bold',
+    marginBottom: '20px'
   },
   documentCard: {
     marginBottom: '20px',
@@ -206,6 +212,7 @@ const styles = {
   documentCategory: {
     fontSize: '18px',
     fontWeight: 'bold',
+    marginBottom: '20px'
   },
   documentLinks: {
     listStyleType: 'none',
